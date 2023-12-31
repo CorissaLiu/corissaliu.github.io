@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>leetcode211 | StayLooc</title><meta name="author" content="Corrisa"><meta name="copyright" content="Corrisa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Leetcode 211. 添加与搜索单词 - 数据结构设计 Author: Carissa 🎀 Date: Dec.26 2023 🎄 Link: 211. 添加与搜索单词 - 数据结构设计 - 力扣（LeetCode）  1 题目请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。 实现词典类 WordDictionary ：  WordDictiona">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode211">
+<meta property="og:url" content="http://example.com/2023/12/27/leetcode211/index.html">
+<meta property="og:site_name" content="StayLooc">
+<meta property="og:description" content="Leetcode 211. 添加与搜索单词 - 数据结构设计 Author: Carissa 🎀 Date: Dec.26 2023 🎄 Link: 211. 添加与搜索单词 - 数据结构设计 - 力扣（LeetCode）  1 题目请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。 实现词典类 WordDictionary ：  WordDictiona">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/cover.jpg">
+<meta property="article:published_time" content="2023-12-26T16:15:17.000Z">
+<meta property="article:modified_time" content="2023-12-26T16:16:14.481Z">
+<meta property="article:author" content="Corrisa">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="Trie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/cover.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/12/27/leetcode211/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'leetcode211',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-27 00:16:14'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/cover.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="StayLooc"><span class="site-name">StayLooc</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">leetcode211</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-26T16:15:17.000Z" title="发表于 2023-12-27 00:15:17">2023-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-26T16:16:14.481Z" title="更新于 2023-12-27 00:16:14">2023-12-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Leetcode/">Leetcode</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="leetcode211"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Leetcode-211-添加与搜索单词-数据结构设计"><a href="#Leetcode-211-添加与搜索单词-数据结构设计" class="headerlink" title="Leetcode 211. 添加与搜索单词 - 数据结构设计"></a>Leetcode 211. 添加与搜索单词 - 数据结构设计</h1><blockquote>
+<p>Author: Carissa 🎀</p>
+<p>Date: Dec.26 2023 🎄</p>
+<p>Link: <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-add-and-search-words-data-structure/">211. 添加与搜索单词 - 数据结构设计 - 力扣（LeetCode）</a></p>
+</blockquote>
+<h3 id="1-题目"><a href="#1-题目" class="headerlink" title="1 题目"></a>1 题目</h3><p>请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。</p>
+<p>实现词典类 <code>WordDictionary</code> ：</p>
+<ul>
+<li><code>WordDictionary()</code> 初始化词典对象</li>
+<li><code>void addWord(word)</code> 将 <code>word</code> 添加到数据结构中，之后可以对它进行匹配</li>
+<li><code>bool search(word)</code> 如果数据结构中存在字符串与 <code>word</code> 匹配，则返回 <code>true</code> ；否则，返回 <code>false</code> 。<code>word</code> 中可能包含一些 <code>&#39;.&#39;</code> ，每个 <code>.</code> 都可以表示任何一个字母。</li>
+</ul>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length &lt;= 25</code></li>
+<li><code>addWord</code> 中的 <code>word</code> 由小写英文字母组成</li>
+<li><code>search</code> 中的 <code>word</code> 由 ‘.’ 或小写英文字母组成</li>
+<li>最多调用 <code>104</code> 次 <code>addWord</code> 和 <code>search</code></li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong>[“WordDictionary”,”addWord”,”addWord”,”addWord”,”search”,”search”,”search”,”search”]<br>[[],[“bad”],[“dad”],[“mad”],[“pad”],[“bad”],[“.ad”],[“b..”]]</p>
+<p><strong>输出：</strong>[null,null,null,null,false,true,true,true]</p>
+<p><strong>解释：</strong></p>
+<p>WordDictionary wordDictionary &#x3D; new WordDictionary();<br>wordDictionary.addWord(“bad”);<br>wordDictionary.addWord(“dad”);<br>wordDictionary.addWord(“mad”);<br>wordDictionary.search(“pad”); &#x2F;&#x2F; 返回 False<br>wordDictionary.search(“bad”); &#x2F;&#x2F; 返回 True<br>wordDictionary.search(“.ad”); &#x2F;&#x2F; 返回 True<br>wordDictionary.search(“b..”); &#x2F;&#x2F; 返回 True</p>
+</blockquote>
+<h3 id="2-思路"><a href="#2-思路" class="headerlink" title="2 思路"></a>2 思路</h3><p>本题考点非常明确，即前缀树，但是我们应当注意到，这里在搜索时由于 ‘.’ 可以对应任意单词，还涉及到树的回溯搜索</p>
+<p>​	&#x3D;&#x3D;- 前缀树&#x3D;&#x3D;</p>
+<p>​	&#x3D;&#x3D;- 回溯&#x3D;&#x3D;</p>
+<h4 id="2-1-前缀树（Trie）"><a href="#2-1-前缀树（Trie）" class="headerlink" title="2.1 前缀树（Trie）"></a>2.1 前缀树（Trie）</h4><p>非常经典必须掌握的数据结构写法，在这里做简单回顾。</p>
+<ol>
+<li>一个 TrieNode 结构应当包含以下部分：<ul>
+<li>字段：<ul>
+<li><code>val</code>: 当前节点的值</li>
+<li><code>childern</code>: 记录当前节点的子节点</li>
+<li><code>isEnd</code>: 记录当前节点是否是某个单词的结尾</li>
+</ul>
+</li>
+<li>方法（除了构造方法）：<ul>
+<li><code>insert()</code>: 插入单词</li>
+<li><code>search()</code>: 搜索单词</li>
+<li>本题由于search方法有进一步回溯，可以放到题目的特定方法中去定义</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尤其需要注意的是 <code>children</code> 的实现，一开始采用的是 Map 结构，导致代码异常复杂，对于字典树来说，只需要记录26个字母的情况，采用 <code>Node[26]</code> 记录即可。</li>
+</ol>
+<h4 id="2-2-回溯"><a href="#2-2-回溯" class="headerlink" title="2.2 回溯"></a>2.2 回溯</h4><ul>
+<li><p>从根节点开始搜索，当返回 <code>false</code> 或单词的所有字符已全部搜索完成，则返回。</p>
+</li>
+<li><p>对于每一个字符来说：</p>
+<ul>
+<li>如果当前字符是字母，则判断当前字符是否能匹配本层节点，如果能则匹配下个字符，否则返回 <code>false</code></li>
+<li>如果当前字符是 <code>.</code> , 则遍历所有的非空子节点</li>
+</ul>
+</li>
+<li><p>需要注意的是：</p>
+<ul>
+<li>判断字符 <code>Character.isLetter()</code> 可以使用</li>
+</ul>
+</li>
+</ul>
+<p>回溯部分代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(String word, <span class="type">int</span> index, TreeNode node)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(index == word.length()) <span class="keyword">return</span> node.isLeaf;</span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> word.charAt(index);</span><br><span class="line">        <span class="keyword">if</span>(Character.isLetter(ch)) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">chindex</span> <span class="operator">=</span> ch - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(node.childern[chindex] != <span class="literal">null</span> &amp;&amp; dfs(word, index+<span class="number">1</span>, node.childern[chindex])) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">child</span> <span class="operator">=</span> node.childern[i];</span><br><span class="line">                <span class="keyword">if</span>(child != <span class="literal">null</span> &amp;&amp; dfs(word, index + <span class="number">1</span>, child)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="3-复杂度分析"><a href="#3-复杂度分析" class="headerlink" title="3 复杂度分析"></a>3 复杂度分析</h3><p>时间复杂度：</p>
+<p>​			初始化： O(1)</p>
+<p>​			插入：O(∣S∣)</p>
+<p>​			搜索：O(∣Σ∣∣S∣)</p>
+<p>​			∣S∣ 是每次添加或搜索的单词的长度，Σ 是字符集，本题 ∣Σ∣&#x3D;26。最坏情况下，待搜索的单词中的每个字符都是点号，则每个字符都有 ∣Σ∣种可能。</p>
+<p>空间复杂度：O(∣Σ∣∣T∣) </p>
+<p>​			∣T∣是所有添加的单词的长度之和			</p>
+<h3 id="4-完整解法"><a href="#4-完整解法" class="headerlink" title="4 完整解法"></a>4 完整解法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">WordDictionary</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">TreeNode</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> TreeNode[] childern;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">boolean</span> isLeaf;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">TreeNode</span> <span class="params">()</span> &#123;</span><br><span class="line">            isLeaf = <span class="literal">false</span>;</span><br><span class="line">            childern = <span class="keyword">new</span> <span class="title class_">TreeNode</span>[<span class="number">26</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(String s)</span> &#123;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> <span class="built_in">this</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">                <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">                <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> c - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">                <span class="keyword">if</span>(node.childern[index] == <span class="literal">null</span>) &#123;</span><br><span class="line">                    node.childern[index] = <span class="keyword">new</span> <span class="title class_">TreeNode</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                node = node.childern[index];</span><br><span class="line">            &#125;</span><br><span class="line">            node.isLeaf = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> TreeNode root;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">WordDictionary</span><span class="params">()</span> &#123;</span><br><span class="line">        root = <span class="keyword">new</span> <span class="title class_">TreeNode</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addWord</span><span class="params">(String word)</span> &#123;</span><br><span class="line">        root.insert(word);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">search</span><span class="params">(String word)</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> dfs(word, <span class="number">0</span>, root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">dfs</span><span class="params">(String word, <span class="type">int</span> index, TreeNode node)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(index == word.length()) <span class="keyword">return</span> node.isLeaf;</span><br><span class="line">        <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> word.charAt(index);</span><br><span class="line">        <span class="keyword">if</span>(Character.isLetter(ch)) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">chindex</span> <span class="operator">=</span> ch - <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(node.childern[chindex] != <span class="literal">null</span> &amp;&amp; dfs(word, index+<span class="number">1</span>, node.childern[chindex])) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">                <span class="type">TreeNode</span> <span class="variable">child</span> <span class="operator">=</span> node.childern[i];</span><br><span class="line">                <span class="keyword">if</span>(child != <span class="literal">null</span> &amp;&amp; dfs(word, index + <span class="number">1</span>, child)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Corrisa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/12/27/leetcode211/">http://example.com/2023/12/27/leetcode211/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">StayLooc</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Leetcode/">Leetcode</a><a class="post-meta__tags" href="/tags/Trie/">Trie</a></div><div class="post_share"><div class="social-share" data-image="/img/cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/27/leetcode289/" title="leetcode289"><img class="cover" src="/img/cover3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">leetcode289</div></div></a></div><div class="next-post pull-right"><a href="/2023/12/26/Leetcode-190-reverse-bits/" title="Leetcode 190. reverse_bits"><img class="cover" src="/img/cover2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Leetcode 190. reverse_bits</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/12/28/leetcode212/" title="leetcode212 word-search-ii"><img class="cover" src="/img/cover3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-28</div><div class="title">leetcode212 word-search-ii</div></div></a></div><div><a href="/2023/12/26/Leetcode-190-reverse-bits/" title="Leetcode 190. reverse_bits"><img class="cover" src="/img/cover2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-26</div><div class="title">Leetcode 190. reverse_bits</div></div></a></div><div><a href="/2023/12/27/leetcode289/" title="leetcode289"><img class="cover" src="/img/cover3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-27</div><div class="title">leetcode289</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Corrisa</div><div class="author-info__description">Move Fast & Break Things</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Leetcode-211-%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8D%95%E8%AF%8D-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">Leetcode 211. 添加与搜索单词 - 数据结构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A2%98%E7%9B%AE"><span class="toc-number">1.0.1.</span> <span class="toc-text">1 题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%80%9D%E8%B7%AF"><span class="toc-number">1.0.2.</span> <span class="toc-text">2 思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%89%8D%E7%BC%80%E6%A0%91%EF%BC%88Trie%EF%BC%89"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">2.1 前缀树（Trie）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%9B%9E%E6%BA%AF"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">2.2 回溯</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-number">1.0.3.</span> <span class="toc-text">3 复杂度分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%8C%E6%95%B4%E8%A7%A3%E6%B3%95"><span class="toc-number">1.0.4.</span> <span class="toc-text">4 完整解法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/28/leetcode212/" title="leetcode212 word-search-ii"><img src="/img/cover3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leetcode212 word-search-ii"/></a><div class="content"><a class="title" href="/2023/12/28/leetcode212/" title="leetcode212 word-search-ii">leetcode212 word-search-ii</a><time datetime="2023-12-28T10:22:17.000Z" title="发表于 2023-12-28 18:22:17">2023-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/leetcode289/" title="leetcode289"><img src="/img/cover3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leetcode289"/></a><div class="content"><a class="title" href="/2023/12/27/leetcode289/" title="leetcode289">leetcode289</a><time datetime="2023-12-26T16:19:47.000Z" title="发表于 2023-12-27 00:19:47">2023-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/leetcode211/" title="leetcode211"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leetcode211"/></a><div class="content"><a class="title" href="/2023/12/27/leetcode211/" title="leetcode211">leetcode211</a><time datetime="2023-12-26T16:15:17.000Z" title="发表于 2023-12-27 00:15:17">2023-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/26/Leetcode-190-reverse-bits/" title="Leetcode 190. reverse_bits"><img src="/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode 190. reverse_bits"/></a><div class="content"><a class="title" href="/2023/12/26/Leetcode-190-reverse-bits/" title="Leetcode 190. reverse_bits">Leetcode 190. reverse_bits</a><time datetime="2023-12-25T16:01:13.000Z" title="发表于 2023-12-26 00:01:13">2023-12-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/28/hello-world/" title="Hello World"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2023/11/28/hello-world/" title="Hello World">Hello World</a><time datetime="2023-11-28T07:17:23.552Z" title="发表于 2023-11-28 15:17:23">2023-11-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Corrisa</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
